@@ -22,29 +22,19 @@ server.registerTool(
   {
     title: 'Gemini: generate text',
     description: 'Call Google Gemini models via the Google Gen AI SDK.',
-    // ★ SDK 1.20.x 系は ZodRawShape を要求 → shape を渡す
+    // SDK 1.20.x requires ZodRawShape, so pass Input.shape instead of the full Zod object
     inputSchema: Input.shape,
   },
   async (args: InputType) => {
     const { prompt, model, temperature } = args;
     if (!process.env.GEMINI_API_KEY) throw new Error('GEMINI_API_KEY is not set');
 
-    // 一部バージョンで型がズレるため any で安全に通す
-    const params: any = {
+    const response = await ai.models.generateContent({
       model,
       contents: prompt,
-      // 温度は世代設定に入れるが、型が無い環境があるので any で包む
-      generationConfig: { temperature },
-    };
-
-    const res: any = await (ai as any).models.generateContent(params);
-
-    // 返却形式の差にも耐えるテキスト抽出
-    const text: string =
-      (res && typeof res.text === 'function' ? res.text() : res?.text) ??
-      res?.response?.text?.() ??
-      res?.response?.candidates?.[0]?.content?.parts?.map((p: any) => p?.text ?? '').join('') ??
-      '';
+      config: { temperature },
+    });
+    const text = response.text || '';
 
     return {
       content: [{ type: 'text', text }],

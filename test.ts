@@ -1,12 +1,11 @@
-// test.ts
 import { Client as McpClient } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
 async function main() {
   const urlStr = process.env.MCP_URL || 'http://localhost:3333/mcp';
-  const url = new URL(urlStr); // ← ここがポイント（string → URL）
+  const url = new URL(urlStr);
 
-  const prompt = process.env.TEST_PROMPT || '俳句を一つ作って。';
+  const prompt = process.env.TEST_PROMPT || 'Write a haiku.';
   const model = process.env.TEST_MODEL || 'gemini-2.5-pro';
   const temperature = Number(process.env.TEST_TEMPERATURE ?? 0.7);
 
@@ -35,9 +34,13 @@ async function main() {
     (res as any)?.content?.find?.((c: any) => c?.type === 'text')?.text ??
     JSON.stringify(res);
 
+  console.log('=== Test Configuration ===');
+  console.log(`Prompt: ${prompt}`);
+  console.log(`Model: ${model}`);
+  console.log(`Temperature: ${temperature}`);
   console.log('=== Tool Result ===');
   console.log(text);
-  console.log('===================');
+  console.log('=========================');
 
   await client.close();
 }
