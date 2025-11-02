@@ -39,10 +39,13 @@ Optional test configuration:
 ## Architecture
 
 **Server Architecture** (`server.ts`):
-- Express server with a single POST endpoint at `/mcp`
+- Express server with two endpoints:
+  - POST `/mcp` - MCP protocol endpoint
+  - GET `/health` - Health check endpoint (for Cloud Run)
 - Uses MCP SDK's `StreamableHTTPServerTransport` for HTTP-based MCP communication
 - Registers one tool: `gemini.generateText`
 - Tool uses Google Gen AI SDK to call Gemini models with configurable parameters (model, temperature)
+- Listens on `0.0.0.0` for Cloud Run compatibility
 - Response extraction handles multiple Google Gen AI SDK version differences using defensive type checking
 
 **Tool Schema** (`gemini.generateText`):
@@ -61,3 +64,12 @@ Optional test configuration:
 - Type handling for Google Gen AI SDK is defensive (uses `any` casts) to handle version differences
 - Text extraction from Gemini responses handles multiple possible response formats for compatibility
 - Transport cleanup is tied to Express response close event to prevent resource leaks
+- Server binds to `0.0.0.0` for Cloud Run compatibility (listens on all interfaces)
+
+## Deployment
+
+**Cloud Run Deployment:**
+- Automated via GitHub Actions on push to `main` branch
+- Initial setup: `./bin/setup-gcp.sh` (creates GCP resources, Workload Identity Federation)
+- Configuration: 512Mi memory, 1 CPU, concurrency 10, 600s timeout
+- See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed setup instructions
