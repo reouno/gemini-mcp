@@ -80,6 +80,30 @@ Environment variables:
 - `GEMINI_API_KEY` (required): Your Google Gemini API key
 - `PORT` (optional): Server port (default: 3333)
 
+## Deployment
+
+Deploy to Google Cloud Run with automated scripts:
+
+```bash
+# 0. Prerequisites (one-time, via GCP Console)
+#    - Create GCP project
+#    - Link billing account
+#    - Run: gcloud auth login
+
+# 1. Setup GCP (one-time)
+./bin/setup-gcp.sh \
+  --project-id=my-project \
+  --github-user=your-username \
+  --github-repo=gemini-mcp
+
+# 2. Set GitHub Secrets (follow script output)
+
+# 3. Deploy
+git push origin main
+```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## License
 
 ISC

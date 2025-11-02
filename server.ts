@@ -45,6 +45,12 @@ server.registerTool(
 
 const app = express();
 app.use(express.json());
+
+// Health check endpoint for Cloud Run and warmup
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 app.post('/mcp', async (req, res) => {
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
@@ -56,6 +62,6 @@ app.post('/mcp', async (req, res) => {
 });
 
 const port = parseInt(process.env.PORT || '3333', 10);
-app.listen(port, () => {
-  console.log(`Gemini MCP listening on http://localhost:${port}/mcp`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Gemini MCP listening on http://0.0.0.0:${port}/mcp`);
 });
