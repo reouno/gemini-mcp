@@ -217,24 +217,7 @@ GitHub Actions でデプロイの進行状況を確認できます。
 
 ### 手動デプロイ（ローカルから）
 
-GitHub Actionsを使わず、ローカルから直接デプロイする場合（緊急時など）。
-
-#### スクリプトを使用（推奨）
-
-```bash
-./bin/deploy.sh \
-  --project-id=your-project-id \
-  --gemini-api-key=your-api-key
-```
-
-オプション：
-- `--region=REGION` - デプロイリージョン（デフォルト: asia-northeast1）
-- `--memory=SIZE` - メモリ割り当て（デフォルト: 512Mi）
-- `--cpu=COUNT` - CPU数（デフォルト: 1）
-- `--min-instances=N` - 最小インスタンス数（デフォルト: 0）
-- `--max-instances=N` - 最大インスタンス数（デフォルト: 10）
-
-#### 手動で実行
+GitHub Actionsを使わず、ローカルから直接デプロイする場合（緊急時など）：
 
 ```bash
 # プロジェクトとリージョンを設定
@@ -258,7 +241,9 @@ gcloud run deploy gemini-mcp \
   --memory 512Mi \
   --cpu 1 \
   --min-instances 0 \
-  --max-instances 10
+  --max-instances 10 \
+  --timeout 600 \
+  --concurrency 10
 ```
 
 ## デプロイ後の確認
