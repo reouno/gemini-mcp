@@ -32,7 +32,10 @@ server.registerTool(
     const response = await ai.models.generateContent({
       model,
       contents: prompt,
-      config: { temperature },
+      config: {
+        temperature,
+        tools: [{ googleSearch: {} }],
+       },
     });
     const text = response.text || '';
 
