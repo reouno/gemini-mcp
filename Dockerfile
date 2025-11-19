@@ -9,7 +9,7 @@ RUN npm ci
 
 # Copy source files and build
 COPY tsconfig.json ./
-COPY server.ts ./
+COPY *.ts ./
 RUN npm run build
 
 # Production stage
