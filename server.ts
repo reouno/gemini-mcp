@@ -38,7 +38,11 @@ server.registerTool(
         tools: [{ googleSearch: {} }],
        },
     });
-    const text = response.text || '';
+    const parts = (response as any).candidates?.[0]?.content?.parts || [];
+    const text = parts
+      .filter((part: any) => part.text)
+      .map((part: any) => part.text)
+      .join('');
 
     return {
       content: [{ type: 'text', text }],
