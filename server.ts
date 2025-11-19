@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { GoogleGenAI } from '@google/genai';
+import { DEFAULT_MODEL } from './constants.js';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -11,7 +12,7 @@ const server = new McpServer({ name: 'gemini-mcp', version: '0.1.0' });
 
 const Input = z.object({
   prompt: z.string().min(1),
-  model: z.string().default('gemini-2.5-pro'),
+  model: z.string().default(DEFAULT_MODEL),
   temperature: z.number().min(0).max(2).default(1),
 });
 
@@ -21,7 +22,7 @@ server.registerTool(
   'gemini.generateText',
   {
     title: 'Gemini: generate text',
-    description: 'Call Google Gemini models via the Google Gen AI SDK.',
+    description: `Call Google Gemini models via the Google Gen AI SDK. The default model is the latest reasoning model (${DEFAULT_MODEL}), so you typically do not need to specify a model.`,
     // SDK 1.20.x requires ZodRawShape, so pass Input.shape instead of the full Zod object
     inputSchema: Input.shape,
   },

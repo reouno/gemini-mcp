@@ -1,12 +1,13 @@
 import { Client as McpClient } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import { DEFAULT_MODEL } from './constants.js';
 
 async function main() {
   const urlStr = process.env.MCP_URL || 'http://localhost:3333/mcp';
   const url = new URL(urlStr);
 
   const prompt = process.env.TEST_PROMPT || 'Write a haiku.';
-  const model = process.env.TEST_MODEL || 'gemini-2.5-pro';
+  const model = process.env.TEST_MODEL || DEFAULT_MODEL;
   const temperature = Number(process.env.TEST_TEMPERATURE ?? 0.7);
 
   console.log(`Connecting to MCP server: ${url.href}`);

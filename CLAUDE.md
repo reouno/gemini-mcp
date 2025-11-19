@@ -33,7 +33,7 @@ Optional server configuration:
 Optional test configuration:
 - `MCP_URL` - MCP server URL (default: http://localhost:3333/mcp)
 - `TEST_PROMPT` - Prompt to test with (default: '俳句を一つ作って。')
-- `TEST_MODEL` - Gemini model to use (default: 'gemini-2.5-pro')
+- `TEST_MODEL` - Gemini model to use (default: 'gemini-3-pro-preview')
 - `TEST_TEMPERATURE` - Temperature setting (default: 0.7)
 
 ## Architecture
@@ -50,7 +50,7 @@ Optional test configuration:
 
 **Tool Schema** (`gemini.generateText`):
 - Input validated with Zod schema
-- Parameters: `prompt` (string, required), `model` (string, default: 'gemini-2.5-pro'), `temperature` (number 0-2, default: 1)
+- Parameters: `prompt` (string, required), `model` (string, default: 'gemini-3-pro-preview'), `temperature` (number 0-2, default: 1)
 - Returns structured content with model, temperature, and generated text
 
 **Test Client** (`test.ts`):
