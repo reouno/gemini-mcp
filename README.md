@@ -23,7 +23,7 @@ The server will run at `http://localhost:3333/mcp`
 
 ## Available Tool
 
-### `gemini.generateText`
+### `gemini_generateText`
 
 Generate text using Google Gemini models.
 
@@ -55,7 +55,7 @@ const client = new McpClient(
 await client.connect(transport);
 
 const result = await client.callTool({
-  name: 'gemini.generateText',
+  name: 'gemini_generateText',
   arguments: {
     prompt: 'Explain AI in simple terms',
     model: 'gemini-2.5-pro',

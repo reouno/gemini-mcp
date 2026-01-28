@@ -19,7 +19,7 @@ const Input = z.object({
 type InputType = z.infer<typeof Input>;
 
 server.registerTool(
-  'gemini.generateText',
+  'gemini_generateText',
   {
     title: 'Gemini: generate text',
     description: `Call Google Gemini models via the Google Gen AI SDK. The default model is the latest reasoning model (${DEFAULT_MODEL}), so you typically do not need to specify a model.`,
