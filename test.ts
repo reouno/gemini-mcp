@@ -23,7 +23,7 @@ async function main() {
   console.log('Tools:', tools.tools.map(t => t.name));
 
   const res = await client.callTool({
-    name: 'gemini.generateText',
+    name: 'gemini_generateText',
     arguments: {
       prompt,
       model,

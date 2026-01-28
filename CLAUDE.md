@@ -18,7 +18,7 @@ Server starts on port 3333 by default (configurable via `PORT` environment varia
 ```bash
 npm test
 ```
-This executes `test.ts` which connects to the running server and calls the `gemini.generateText` tool.
+This executes `test.ts` which connects to the running server and calls the `gemini_generateText` tool.
 
 **Note:** The server must be running (via `npm run dev`) before running tests.
 
@@ -43,19 +43,19 @@ Optional test configuration:
   - POST `/mcp` - MCP protocol endpoint
   - GET `/health` - Health check endpoint (for Cloud Run)
 - Uses MCP SDK's `StreamableHTTPServerTransport` for HTTP-based MCP communication
-- Registers one tool: `gemini.generateText`
+- Registers one tool: `gemini_generateText`
 - Tool uses Google Gen AI SDK to call Gemini models with configurable parameters (model, temperature)
 - Listens on `0.0.0.0` for Cloud Run compatibility
 - Response extraction handles multiple Google Gen AI SDK version differences using defensive type checking
 
-**Tool Schema** (`gemini.generateText`):
+**Tool Schema** (`gemini_generateText`):
 - Input validated with Zod schema
 - Parameters: `prompt` (string, required), `model` (string, default: 'gemini-3-pro-preview'), `temperature` (number 0-2, default: 1)
 - Returns structured content with model, temperature, and generated text
 
 **Test Client** (`test.ts`):
 - Uses MCP SDK's `StreamableHTTPClientTransport` to connect to the server
-- Lists available tools and calls `gemini.generateText`
+- Lists available tools and calls `gemini_generateText`
 - Demonstrates the full client-server MCP interaction pattern
 
 ## Key Implementation Details
