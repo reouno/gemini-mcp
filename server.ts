@@ -22,7 +22,7 @@ server.registerTool(
   'gemini_generateText',
   {
     title: 'Gemini: generate text',
-    description: `Call Google Gemini models via the Google Gen AI SDK. The default model is the latest reasoning model (${DEFAULT_MODEL}), so you typically do not need to specify a model.`,
+    description: `Generate text with Google Gemini. Uses built-in Google Search grounding for web-backed answers. The default model is the latest reasoning model (${DEFAULT_MODEL}), so you usually do not need to specify a model.`,
     // SDK 1.20.x requires ZodRawShape, so pass Input.shape instead of the full Zod object
     inputSchema: Input.shape,
   },
